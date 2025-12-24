@@ -1,0 +1,17 @@
+# Node modules
+node_modules/
+
+# Playwright test artifacts
+test-results/
+videos/
+screenshots/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables (if any)
+.env
