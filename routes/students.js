@@ -103,17 +103,17 @@ router.delete('/:id', async (req, res) => {
 
 // Export to CSV
 
-const { Parser } = require('json2csv');
-
 router.get('/export', (req, res) => {
 
   const fields = ['name', 'class', 'phone', 'mentorName'];
 
-  const opts = { fields };
+  let csv = fields.join(',') + '\n';
 
-  const parser = new Parser(opts);
+  students.forEach(student => {
 
-  const csv = parser.parse(students);
+    csv += `${student.name},${student.class},${student.phone},${student.mentorName}\n`;
+
+  });
 
   res.header('Content-Type', 'text/csv');
 

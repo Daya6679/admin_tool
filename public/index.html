@@ -3,127 +3,220 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Tool - Students</title>
+  <title>Admin Tool</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>Student Admin Tool</h1>
+    <h1>Admin Tool</h1>
 
-    <h2>Add Student</h2>
-    <form id="addStudentForm">
-      <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" id="name" required>
-      </div>
-      <div class="form-group">
-        <label for="class">Class:</label>
-        <input type="text" id="class" required>
-      </div>
-      <div class="form-group">
-        <label for="phone">Phone:</label>
-        <input type="text" id="phone" required maxlength="10">
-      </div>
-      <div class="form-group">
-        <label for="mentorName">Mentor Name:</label>
-        <input type="text" id="mentorName" required>
-      </div>
-      <button type="submit">Add Student</button>
-    </form>
+    <div class="main-content">
+      <div class="section students-section">
+        <h2>Students</h2>
+        <form id="addStudentForm">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" required>
+          </div>
+          <div class="form-group">
+            <label for="class">Class:</label>
+            <input type="text" id="class" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" required maxlength="10">
+          </div>
+          <div class="form-group">
+            <label for="mentorName">Mentor Name:</label>
+            <input type="text" id="mentorName" required>
+          </div>
+          <button type="submit">Add Student</button>
+        </form>
 
-    <h2>Students List</h2>
-    <button id="exportBtn" class="export-btn">Export to CSV</button>
-    <table id="studentsTable">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Class</th>
-          <th>Phone</th>
-          <th>Mentor Name</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-    </table>
+        <h3>Students List</h3>
+        <button id="exportStudentsBtn" class="export-btn">Export Students to CSV</button>
+        <table id="studentsTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Class</th>
+              <th>Phone</th>
+              <th>Mentor Name</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section mentors-section">
+        <h2>Mentors</h2>
+        <form id="addMentorForm">
+          <div class="form-group">
+            <label for="mentorNameInput">Name:</label>
+            <input type="text" id="mentorNameInput" required>
+          </div>
+          <div class="form-group">
+            <label for="mentorId">Mentor ID:</label>
+            <input type="text" id="mentorId" required>
+          </div>
+          <div class="form-group">
+            <label for="subjects">Subjects:</label>
+            <input type="text" id="subjects" required>
+          </div>
+          <div class="form-group">
+            <label for="classTiming">Class Timing:</label>
+            <input type="text" id="classTiming" required>
+          </div>
+          <button type="submit">Add Mentor</button>
+        </form>
+
+        <h3>Mentors List</h3>
+        <button id="exportMentorsBtn" class="export-btn">Export Mentors to CSV</button>
+        <table id="mentorsTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Mentor ID</th>
+              <th>Subjects</th>
+              <th>Class Timing</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
-  <!-- Edit Modal -->
-  <div id="editModal" class="modal">
+  <!-- Edit Student Modal -->
+  <div id="editStudentModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
       <h2>Edit Student</h2>
-      <form id="editForm">
+      <form id="editStudentForm">
         <div class="form-group">
-          <label for="editName">Name:</label>
-          <input type="text" id="editName" required>
+          <label for="editStudentName">Name:</label>
+          <input type="text" id="editStudentName" required>
         </div>
         <div class="form-group">
-          <label for="editClass">Class:</label>
-          <input type="text" id="editClass" required>
+          <label for="editStudentClass">Class:</label>
+          <input type="text" id="editStudentClass" required>
         </div>
         <div class="form-group">
-          <label for="editPhone">Phone:</label>
-          <input type="tel" id="editPhone" pattern="[0-9]{10}" title="Please enter exactly 10 digits" required>
+          <label for="editStudentPhone">Phone:</label>
+          <input type="tel" id="editStudentPhone" pattern="[0-9]{10}" title="Please enter exactly 10 digits" required>
         </div>
         <div class="form-group">
-          <label for="editMentorName">Mentor Name:</label>
-          <input type="text" id="editMentorName" required>
+          <label for="editStudentMentorName">Mentor Name:</label>
+          <input type="text" id="editStudentMentorName" required>
         </div>
         <button type="submit">Update Student</button>
       </form>
     </div>
   </div>
 
+  <!-- Edit Mentor Modal -->
+  <div id="editMentorModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Edit Mentor</h2>
+      <form id="editMentorForm">
+        <div class="form-group">
+          <label for="editMentorName">Name:</label>
+          <input type="text" id="editMentorName" required>
+        </div>
+        <div class="form-group">
+          <label for="editMentorId">Mentor ID:</label>
+          <input type="text" id="editMentorId" required>
+        </div>
+        <div class="form-group">
+          <label for="editMentorSubjects">Subjects:</label>
+          <input type="text" id="editMentorSubjects" required>
+        </div>
+        <div class="form-group">
+          <label for="editMentorClassTiming">Class Timing:</label>
+          <input type="text" id="editMentorClassTiming" required>
+        </div>
+        <button type="submit">Update Mentor</button>
+      </form>
+    </div>
+  </div>
+
   <script>
-    const form = document.getElementById('addStudentForm');
-    const tableBody = document.querySelector('#studentsTable tbody');
-    const exportBtn = document.getElementById('exportBtn');
-    const modal = document.getElementById('editModal');
-    const editForm = document.getElementById('editForm');
-    const closeBtn = document.getElementsByClassName('close')[0];
-    let currentEditId = null;
+    // Students
+    const studentForm = document.getElementById('addStudentForm');
+    const studentTableBody = document.querySelector('#studentsTable tbody');
+    const exportStudentsBtn = document.getElementById('exportStudentsBtn');
+    const studentModal = document.getElementById('editStudentModal');
+    const editStudentForm = document.getElementById('editStudentForm');
+    const studentCloseBtn = document.getElementsByClassName('close')[0];
+    let currentStudentEditId = null;
     const phoneInput = document.getElementById('phone');
+
+    // Mentors
+    const mentorForm = document.getElementById('addMentorForm');
+    const mentorTableBody = document.querySelector('#mentorsTable tbody');
+    const exportMentorsBtn = document.getElementById('exportMentorsBtn');
+    const mentorModal = document.getElementById('editMentorModal');
+    const editMentorForm = document.getElementById('editMentorForm');
+    const mentorCloseBtn = document.getElementsByClassName('close')[1];
+    let currentMentorEditId = null;
 
     // Allow only digits in phone input
     phoneInput.addEventListener('input', () => {
       phoneInput.value = phoneInput.value.replace(/\D/g, '');
     });
 
-    // Load students on page load
+    // Load data on page load
     loadStudents();
+    loadMentors();
 
-    // Modal close
-    closeBtn.onclick = function() {
-      modal.style.display = "none";
+    // Modal close for students
+    if (studentCloseBtn) {
+      studentCloseBtn.onclick = function() {
+        studentModal.style.display = "none";
+      }
     }
     window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
+      if (event.target == studentModal) {
+        studentModal.style.display = "none";
+      }
+      if (event.target == mentorModal) {
+        mentorModal.style.display = "none";
       }
     }
 
-    // Edit form submit
-    editForm.addEventListener('submit', async (e) => {
+    // Modal close for mentors
+    if (mentorCloseBtn) {
+      mentorCloseBtn.onclick = function() {
+        mentorModal.style.display = "none";
+      }
+    }
+
+    // Edit student form submit
+    editStudentForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const name = document.getElementById('editName').value;
-      const studentClass = document.getElementById('editClass').value;
-      const phone = document.getElementById('editPhone').value;
-      const mentorName = document.getElementById('editMentorName').value;
+      const name = document.getElementById('editStudentName').value;
+      const studentClass = document.getElementById('editStudentClass').value;
+      const phone = document.getElementById('editStudentPhone').value;
+      const mentorName = document.getElementById('editStudentMentorName').value;
 
       if (phone.length !== 10 || !/^\d{10}$/.test(phone)) {
         alert('Phone number must be exactly 10 digits.');
         return;
       }
 
-      const response = await fetch(`/api/students/${currentEditId}`, {
+      const response = await fetch(`/api/students/${currentStudentEditId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, class: studentClass, phone, mentorName })
       });
 
       if (response.ok) {
-        modal.style.display = "none";
+        studentModal.style.display = "none";
         loadStudents();
       } else {
         alert('Error updating student');
@@ -131,7 +224,7 @@
     });
 
     // Add student
-    form.addEventListener('submit', async (e) => {
+    studentForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const name = document.getElementById('name').value;
@@ -152,7 +245,7 @@
       });
 
       if (response.ok) {
-        form.reset();
+        studentForm.reset();
         loadStudents();
       } else {
         alert('Error adding student');
@@ -163,7 +256,7 @@
     async function loadStudents() {
       const response = await fetch('/api/students');
       const students = await response.json();
-      tableBody.innerHTML = '';
+      studentTableBody.innerHTML = '';
       students.forEach(student => {
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -176,7 +269,7 @@
             <button class="delete-btn" onclick="deleteStudent('${student.id}')">Delete</button>
           </td>
         `;
-        tableBody.appendChild(row);
+        studentTableBody.appendChild(row);
       });
     }
 
@@ -187,12 +280,12 @@
       const student = students.find(s => s.id === id);
 
       if (student) {
-        currentEditId = id;
-        document.getElementById('editName').value = student.name;
-        document.getElementById('editClass').value = student.class;
-        document.getElementById('editPhone').value = student.phone;
-        document.getElementById('editMentorName').value = student.mentorName;
-        modal.style.display = "block";
+        currentStudentEditId = id;
+        document.getElementById('editStudentName').value = student.name;
+        document.getElementById('editStudentClass').value = student.class;
+        document.getElementById('editStudentPhone').value = student.phone;
+        document.getElementById('editStudentMentorName').value = student.mentorName;
+        studentModal.style.display = "block";
       }
     }
 
@@ -211,9 +304,111 @@
       }
     }
 
-    // Export to CSV
-    exportBtn.addEventListener('click', () => {
+    // Export students to CSV
+    exportStudentsBtn.addEventListener('click', () => {
       window.location.href = '/api/students/export';
+    });
+
+    // Edit mentor form submit
+    editMentorForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('editMentorName').value;
+      const mentorId = document.getElementById('editMentorId').value;
+      const subjects = document.getElementById('editMentorSubjects').value;
+      const classTiming = document.getElementById('editMentorClassTiming').value;
+
+      const response = await fetch(`/api/mentors/${currentMentorEditId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, mentorId, subjects, classTiming })
+      });
+
+      if (response.ok) {
+        mentorModal.style.display = "none";
+        loadMentors();
+      } else {
+        alert('Error updating mentor');
+      }
+    });
+
+    // Add mentor
+    mentorForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('mentorNameInput').value;
+      const mentorId = document.getElementById('mentorId').value;
+      const subjects = document.getElementById('subjects').value;
+      const classTiming = document.getElementById('classTiming').value;
+
+      const response = await fetch('/api/mentors', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, mentorId, subjects, classTiming })
+      });
+
+      if (response.ok) {
+        mentorForm.reset();
+        loadMentors();
+      } else {
+        alert('Error adding mentor');
+      }
+    });
+
+    // Load mentors
+    async function loadMentors() {
+      const response = await fetch('/api/mentors');
+      const mentors = await response.json();
+      mentorTableBody.innerHTML = '';
+      mentors.forEach(mentor => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${mentor.name}</td>
+          <td>${mentor.mentorId}</td>
+          <td>${mentor.subjects}</td>
+          <td>${mentor.classTiming}</td>
+          <td class="actions">
+            <button class="edit-btn" onclick="editMentor('${mentor.id}')">Edit</button>
+            <button class="delete-btn" onclick="deleteMentor('${mentor.id}')">Delete</button>
+          </td>
+        `;
+        mentorTableBody.appendChild(row);
+      });
+    }
+
+    // Edit mentor
+    async function editMentor(id) {
+      const response = await fetch('/api/mentors');
+      const mentors = await response.json();
+      const mentor = mentors.find(m => m.id === id);
+
+      if (mentor) {
+        currentMentorEditId = id;
+        document.getElementById('editMentorName').value = mentor.name;
+        document.getElementById('editMentorId').value = mentor.mentorId;
+        document.getElementById('editMentorSubjects').value = mentor.subjects;
+        document.getElementById('editMentorClassTiming').value = mentor.classTiming;
+        mentorModal.style.display = "block";
+      }
+    }
+
+    // Delete mentor
+    async function deleteMentor(id) {
+      if (confirm('Are you sure you want to delete this mentor?')) {
+        const response = await fetch(`/api/mentors/${id}`, {
+          method: 'DELETE'
+        });
+
+        if (response.ok) {
+          loadMentors();
+        } else {
+          alert('Error deleting mentor');
+        }
+      }
+    }
+
+    // Export mentors to CSV
+    exportMentorsBtn.addEventListener('click', () => {
+      window.location.href = '/api/mentors/export';
     });
   </script>
 </body>

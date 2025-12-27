@@ -4,7 +4,8 @@ This is a ready-to-run Playwright project where all tests **always pass**.
 
 ## Setup
 
-1. Install dependencies:
+1. Clone the repo:
 
 ```bash
-npm install
+git clone <your-repo-url>
+cd playwright-always-pass

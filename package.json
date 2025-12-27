@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "Playwright project where all tests always pass",
   "scripts": {
-    "start": "node index.js",
+    "start": "node app.js",
     "test": "npx playwright test",
     "test:headed": "npx playwright test --headed",
     "test:report": "npx playwright show-report"
   },
   "devDependencies": {
     "@playwright/test": "^1.38.0"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
   }
 }
