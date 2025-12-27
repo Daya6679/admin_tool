@@ -1,15 +1,25 @@
 module.exports = {
   apps: [
     {
-      name: "admin-tool",
-      script: "index.js",
-      instances: 1,
-      autorestart: true,
-      watch: false,
+      name: 'admin-tool-3000',
+      script: 'index.js',
       env: {
-        NODE_ENV: "production",
-        PORT: 3000
-      }
-    }
-  ]
+        PORT: 3000,
+      },
+    },
+    {
+      name: 'admin-tool-3001',
+      script: 'index.js',
+      env: {
+        PORT: 3001,
+      },
+    },
+    {
+      name: 'admin-tool-3002',
+      script: 'index.js',
+      env: {
+        PORT: 3002,
+      },
+    },
+  ],
 };

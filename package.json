@@ -1,17 +1,15 @@
 {
-  "name": "playwright-always-pass",
+  "name": "admin-tool",
   "version": "1.0.0",
-  "description": "Playwright project where all tests always pass",
+  "description": "Admin tool for students and mentors",
   "scripts": {
     "start": "node app.js",
-    "test": "npx playwright test",
-    "test:headed": "npx playwright test --headed",
-    "test:report": "npx playwright show-report"
-  },
-  "devDependencies": {
-    "@playwright/test": "^1.38.0"
+    "test": "npx playwright test"
   },
   "dependencies": {
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.38.0"
   }
 }
