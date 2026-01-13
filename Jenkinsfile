@@ -1,15 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'nodejs'
-    }
-
-    environment {
-        APP_NAME = "admin_tool"
-        APP_DIR  = "/var/www/admin_tool"
-    }
-
     stages {
 
         stage('Checkout Code') {
@@ -22,7 +13,14 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
+                echo "Checking Node and npm versions"
+                node -v
+                npm -v
+
+                echo "Installing dependencies"
                 npm install
+
+                echo "Installing Playwright dependencies"
                 npx playwright install --with-deps
                 '''
             }
@@ -31,6 +29,7 @@ pipeline {
         stage('Run Playwright Tests') {
             steps {
                 sh '''
+                echo "Running Playwright tests"
                 npx playwright test
                 '''
             }
@@ -39,12 +38,17 @@ pipeline {
         stage('Deploy with PM2') {
             steps {
                 sh '''
-                mkdir -p /var/www/admin_tool
-                rsync -av --delete ./ /var/www/admin_tool/
+                echo "Stopping old PM2 process if exists"
+                pm2 delete admin_tool || true
 
-                cd /var/www/admin_tool
-                pm2 start ecosystem.config.js || pm2 restart admin_tool
+                echo "Starting app using PM2 ecosystem"
+                pm2 start ecosystem.config.js
+
+                echo "Saving PM2 process list"
                 pm2 save
+
+                echo "Current PM2 status"
+                pm2 list
                 '''
             }
         }
@@ -52,10 +56,10 @@ pipeline {
 
     post {
         success {
-            echo '✅ CI/CD Pipeline completed successfully'
+            echo '✅ CI/CD Pipeline SUCCESS'
         }
         failure {
-            echo '❌ CI/CD Pipeline failed'
+            echo '❌ CI/CD Pipeline FAILED'
         }
     }
 }
