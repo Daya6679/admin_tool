@@ -1,15 +1,10 @@
 pipeline {
     agent any
 
-    environment {
-        NODE_ENV = 'production'
-    }
-
     stages {
 
         stage('Checkout Code') {
             steps {
-                echo '📥 Checking out source code'
                 git branch: 'main',
                     url: 'https://github.com/Daya6679/admin_tool.git'
             }
@@ -18,15 +13,15 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 sh '''
-                echo "🔍 Checking Node and npm versions"
+                echo "Checking Node and npm versions"
                 node -v
                 npm -v
 
-                echo "📦 Installing dependencies (clean install)"
+                echo "Installing dependencies"
                 npm install
 
-                echo "🎭 Installing Playwright browsers and OS deps"
-                npx playwright install
+                echo "Installing Playwright dependencies"
+                npx playwright install --with-deps
                 '''
             }
         }
@@ -34,7 +29,7 @@ pipeline {
         stage('Run Playwright Tests') {
             steps {
                 sh '''
-                echo "🧪 Running Playwright tests"
+                echo "Running Playwright tests"
                 npx playwright test
                 '''
             }
@@ -43,15 +38,16 @@ pipeline {
         stage('Deploy with PM2') {
             steps {
                 sh '''
-                echo "🚀 Deploying application using PM2"
+                echo "Stopping old PM2 process if exists"
+                pm2 delete admin_tool || true
 
-                echo "🔁 Reloading or starting PM2 app"
-                pm2 start ecosystem.config.js --update-env
+                echo "Starting app using PM2 ecosystem"
+                pm2 start ecosystem.config.js
 
-                echo "💾 Saving PM2 process list"
+                echo "Saving PM2 process list"
                 pm2 save
 
-                echo "📊 Current PM2 status"
+                echo "Current PM2 status"
                 pm2 list
                 '''
             }
@@ -64,9 +60,6 @@ pipeline {
         }
         failure {
             echo '❌ CI/CD Pipeline FAILED'
-        }
-        always {
-            echo '📌 Pipeline execution completed'
         }
     }
 }
