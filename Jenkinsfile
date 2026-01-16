@@ -23,7 +23,7 @@ pipeline {
                 npm -v
 
                 echo "📦 Installing dependencies (clean install)"
-                npm ci
+                npm ci && npm install @playwright/test
 
                 echo "🎭 Installing Playwright browsers and OS deps"
                 npx playwright install
