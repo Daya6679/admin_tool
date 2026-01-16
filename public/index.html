@@ -143,6 +143,10 @@
 </head>
 <body>
   <div class="container">
+    <nav>
+      <a href="index.html">Students</a>
+      <a href="mentors.html">Mentors</a>
+    </nav>
     <h1>Student Admin Tool</h1>
 
     <h2>Add Student</h2>
@@ -163,6 +167,22 @@
         <label for="mentorName">Mentor Name:</label>
         <input type="text" id="mentorName" required>
       </div>
+      <div class="form-group">
+        <label for="street">Street:</label>
+        <input type="text" id="street" required>
+      </div>
+      <div class="form-group">
+        <label for="city">City:</label>
+        <input type="text" id="city" required>
+      </div>
+      <div class="form-group">
+        <label for="state">State:</label>
+        <input type="text" id="state" required>
+      </div>
+      <div class="form-group">
+        <label for="zip">Zip:</label>
+        <input type="text" id="zip" required>
+      </div>
       <button type="submit">Add Student</button>
     </form>
 
@@ -175,6 +195,7 @@
           <th>Class</th>
           <th>Phone</th>
           <th>Mentor Name</th>
+          <th>Address</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -204,6 +225,22 @@
         <div class="form-group">
           <label for="editMentorName">Mentor Name:</label>
           <input type="text" id="editMentorName" required>
+        </div>
+        <div class="form-group">
+          <label for="editStreet">Street:</label>
+          <input type="text" id="editStreet" required>
+        </div>
+        <div class="form-group">
+          <label for="editCity">City:</label>
+          <input type="text" id="editCity" required>
+        </div>
+        <div class="form-group">
+          <label for="editState">State:</label>
+          <input type="text" id="editState" required>
+        </div>
+        <div class="form-group">
+          <label for="editZip">Zip:</label>
+          <input type="text" id="editZip" required>
         </div>
         <button type="submit">Update Student</button>
       </form>
@@ -245,6 +282,10 @@
       const studentClass = document.getElementById('editClass').value;
       const phone = document.getElementById('editPhone').value;
       const mentorName = document.getElementById('editMentorName').value;
+      const street = document.getElementById('editStreet').value;
+      const city = document.getElementById('editCity').value;
+      const state = document.getElementById('editState').value;
+      const zip = document.getElementById('editZip').value;
 
       if (phone.length !== 10 || !/^\d{10}$/.test(phone)) {
         alert('Phone number must be exactly 10 digits.');
@@ -254,7 +295,7 @@
       const response = await fetch(`/api/students/${currentEditId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, class: studentClass, phone, mentorName })
+        body: JSON.stringify({ name, class: studentClass, phone, mentorName, street, city, state, zip })
       });
 
       if (response.ok) {
@@ -273,6 +314,10 @@
       const studentClass = document.getElementById('class').value;
       const phone = phoneInput.value;
       const mentorName = document.getElementById('mentorName').value;
+      const street = document.getElementById('street').value;
+      const city = document.getElementById('city').value;
+      const state = document.getElementById('state').value;
+      const zip = document.getElementById('zip').value;
 
       // Phone validation (exactly 10 digits)
       if (!/^\d{10}$/.test(phone)) {
@@ -283,7 +328,7 @@
       const response = await fetch('/api/students', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, class: studentClass, phone, mentorName })
+        body: JSON.stringify({ name, class: studentClass, phone, mentorName, street, city, state, zip })
       });
 
       if (response.ok) {
@@ -300,15 +345,17 @@
       const students = await response.json();
       tableBody.innerHTML = '';
       students.forEach(student => {
+        const address = student.address ? `${student.address.street}, ${student.address.city}, ${student.address.state} ${student.address.zip}` : 'N/A';
         const row = document.createElement('tr');
         row.innerHTML = `
           <td>${student.name}</td>
           <td>${student.class}</td>
           <td>${student.phone}</td>
           <td>${student.mentorName}</td>
+          <td>${address}</td>
           <td class="actions">
-            <button class="edit-btn" onclick="editStudent('${student.id}')">Edit</button>
-            <button class="delete-btn" onclick="deleteStudent('${student.id}')">Delete</button>
+            <button class="edit-btn" onclick="editStudent('${student._id}')">Edit</button>
+            <button class="delete-btn" onclick="deleteStudent('${student._id}')">Delete</button>
           </td>
         `;
         tableBody.appendChild(row);
@@ -319,7 +366,7 @@
     async function editStudent(id) {
       const response = await fetch('/api/students');
       const students = await response.json();
-      const student = students.find(s => s.id === id);
+      const student = students.find(s => s._id === id);
 
       if (student) {
         currentEditId = id;
@@ -327,6 +374,12 @@
         document.getElementById('editClass').value = student.class;
         document.getElementById('editPhone').value = student.phone;
         document.getElementById('editMentorName').value = student.mentorName;
+        if (student.address) {
+          document.getElementById('editStreet').value = student.address.street;
+          document.getElementById('editCity').value = student.address.city;
+          document.getElementById('editState').value = student.address.state;
+          document.getElementById('editZip').value = student.address.zip;
+        }
         modal.style.display = "block";
       }
     }
