@@ -22,10 +22,10 @@ pipeline {
                 node -v
                 npm -v
 
-                echo "📦 Installing dependencies"
-                npm install
+                echo "📦 Installing dependencies (clean install)"
+                npm ci
 
-                echo "🎭 Installing Playwright dependencies"
+                echo "🎭 Installing Playwright browsers and OS deps"
                 npx playwright install --with-deps
                 '''
             }
@@ -45,7 +45,7 @@ pipeline {
                 sh '''
                 echo "🚀 Deploying application using PM2"
 
-                echo "🔁 Reloading / Starting PM2 app via ecosystem"
+                echo "🔁 Reloading or starting PM2 app"
                 pm2 start ecosystem.config.js --update-env
 
                 echo "💾 Saving PM2 process list"
