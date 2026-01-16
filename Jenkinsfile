@@ -26,7 +26,7 @@ pipeline {
                 npm ci
 
                 echo "🎭 Installing Playwright browsers and OS deps"
-                npx playwright install --with-deps
+                npx playwright install
                 '''
             }
         }
