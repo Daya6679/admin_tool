@@ -179,6 +179,10 @@
         <label for="state">State:</label>
         <input type="text" id="state" required>
       </div>
+      <div class="form-group">
+        <label for="zip">Zip:</label>
+        <input type="text" id="zip" required>
+      </div>
       <button type="submit">Add Student</button>
     </form>
 
@@ -234,6 +238,10 @@
           <label for="editState">State:</label>
           <input type="text" id="editState" required>
         </div>
+        <div class="form-group">
+          <label for="editZip">Zip:</label>
+          <input type="text" id="editZip" required>
+        </div>
         <button type="submit">Update Student</button>
       </form>
     </div>
@@ -277,7 +285,7 @@
       const street = document.getElementById('editStreet').value;
       const city = document.getElementById('editCity').value;
       const state = document.getElementById('editState').value;
-     
+      const zip = document.getElementById('editZip').value;
 
       if (phone.length !== 10 || !/^\d{10}$/.test(phone)) {
         alert('Phone number must be exactly 10 digits.');
@@ -287,7 +295,7 @@
       const response = await fetch(`/api/students/${currentEditId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, class: studentClass, phone, mentorName, street, city, state})
+        body: JSON.stringify({ name, class: studentClass, phone, mentorName, street, city, state, zip })
       });
 
       if (response.ok) {
@@ -309,7 +317,7 @@
       const street = document.getElementById('street').value;
       const city = document.getElementById('city').value;
       const state = document.getElementById('state').value;
-    
+      const zip = document.getElementById('zip').value;
 
       // Phone validation (exactly 10 digits)
       if (!/^\d{10}$/.test(phone)) {
@@ -320,7 +328,7 @@
       const response = await fetch('/api/students', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, class: studentClass, phone, mentorName, street, city, state })
+        body: JSON.stringify({ name, class: studentClass, phone, mentorName, street, city, state, zip })
       });
 
       if (response.ok) {
@@ -370,7 +378,7 @@
           document.getElementById('editStreet').value = student.address.street;
           document.getElementById('editCity').value = student.address.city;
           document.getElementById('editState').value = student.address.state;
-         
+          document.getElementById('editZip').value = student.address.zip;
         }
         modal.style.display = "block";
       }
