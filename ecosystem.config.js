@@ -5,7 +5,9 @@ module.exports = {
       script: "app.js",
       cwd: process.cwd(),
       env: {
-        NODE_ENV: "production"
+        NODE_ENV: "production",
+        PORT:3050
+        
       }
     }
   ]

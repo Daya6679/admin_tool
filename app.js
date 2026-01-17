@@ -1,4 +1,6 @@
-/// Sample comment
+// Load environment variables from .env
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 require('./db'); // Connect to MongoDB
@@ -12,7 +14,8 @@ app.use(express.static('public'));
 app.use('/api/students', require('./routes/students'));
 app.use('/api/addresses', require('./routes/addresses'));
 
-const PORT = process.env.PORT || 3000;
+// Use PORT from environment or default to 3050
+const PORT = process.env.PORT || 3050;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
