@@ -5,3 +5,4 @@ mongoose.connect('mongodb://localhost:27017/admin_tool')
   .catch(err => console.error('MongoDB connection error:', err));
 
 module.exports = mongoose.connection;
+//MongoDB changed
