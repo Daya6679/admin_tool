@@ -1,14 +1,12 @@
 module.exports = {
-  apps: [
-    {
-      name: "admin_tool_123",
-      script: "app.js",
-      cwd: process.cwd(),
-      env: {
-        NODE_ENV: "production",
-        PORT:3050
-        
-      }
+  apps: [{
+    name: "admin_tool",
+    script: "app.js",
+    cwd: "/var/www/admin_tool",
+    instances: 1,
+    exec_mode: "fork",
+    env: {
+      NODE_ENV: "production"
     }
-  ]
+  }]
 };
