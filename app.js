@@ -13,6 +13,7 @@ app.use(express.static('public'));
 
 app.use('/api/students', require('./routes/students'));
 app.use('/api/addresses', require('./routes/addresses'));
+app.use('/api/mentors', require('./routes/mentors'));
 
 // Use PORT from environment or default to 3050
 const PORT = process.env.PORT || 3050;
